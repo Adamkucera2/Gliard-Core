@@ -41,11 +41,11 @@ def calculate_score(findings):
     
     total_deduction = 0
     for cat, cat_findings in categories.items():
-        # Max deduction per category is 25 (znížené z 50)
+        # Max deduction per category is 25 (reduced from 50)
         cat_deduction = sum(f.score for f in cat_findings)
         total_deduction += min(cat_deduction, 25)
     
-    # Max total deduction je 80 — skóre nikdy neklesne pod 20
+    # Max total deduction is 80 — score never drops below 20
     total_deduction = min(total_deduction, 80)
     
     return max(20, 100 - total_deduction)
