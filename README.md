@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="web/gliard_logo.svg" width="320" alt="Gliard Logo">
+  <img src="assets/gliard_logo.svg" width="320" alt="Gliard Logo">
   <br>
   <i>"Building trust in the age of autonomous agents."</i>
 </p>
