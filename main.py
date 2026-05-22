@@ -65,7 +65,7 @@ def main(path, output):
     config = load_config()
     edition = config.get('edition', 'core').lower()
     
-    console.print(f"[bold blue]Gliard v1.0.0[/bold blue] [{edition.upper()} EDITION] - Advanced AI Agent Security Scanner")
+    console.print(f"[bold blue]Gliard v1.0.0[/bold blue] [{edition.upper()} EDITION] - Advanced AI Agent Auditor")
     console.print(f"Target: [green]{os.path.abspath(path)}[/green]\n")
 
     # Run scanners
