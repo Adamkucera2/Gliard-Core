@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation | Gliard Security Suite</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --gray-50: #fcfcfc;
+      --gray-100: #f4f4f2;
+      --gray-200: #e8e8e4;
+      --gray-400: #b0afa8;
+      --gray-600: #6b6a65;
+      --accent: #2b2b2b;
+      --border: #eeeeee;
+      --sidebar-width: 300px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.6;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebars / Navigation */
+    .sidebar {
+      width: var(--sidebar-width);
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      border-right: 1px solid var(--border);
+      padding: 32px;
+      overflow-y: auto;
+      background: var(--white);
+      z-index: 100;
+    }
+
+    .sidebar::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('gliardpic.webp');
+      background-size: 300px auto;
+      background-repeat: repeat;
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .doc-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 56px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--black);
+    }
+
+    .nav-group {
+      margin-bottom: 32px;
+    }
+
+    .nav-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .nav-list {
+      list-style: none;
+    }
+
+    .nav-item a {
+      display: block;
+      padding: 8px 0;
+      color: var(--gray-600);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-item a:hover, .nav-item a.active {
+      color: var(--black);
+      font-weight: 500;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: 64px 80px;
+      max-width: 1000px;
+    }
+
+    .doc-header {
+      margin-bottom: 64px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 32px;
+    }
+
+    .doc-category {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--black);
+    }
+
+    .section {
+      margin-bottom: 80px;
+      scroll-margin-top: 80px;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      margin-bottom: 20px;
+      color: var(--gray-600);
+      font-size: 16px;
+    }
+
+    code {
+      font-family: 'DM Mono', monospace;
+      background: var(--gray-100);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 0.9em;
+      color: var(--black);
+    }
+
+    pre {
+      background: var(--black);
+      color: #ccc;
+      padding: 24px;
+      border-radius: 4px;
+      margin-bottom: 32px;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    pre::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('gliardpic.webp');
+      background-size: 200px auto;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .highlight {
+      color: #fff;
+    }
+
+    .info-box {
+      background: var(--gray-100);
+      padding: 24px;
+      border-left: 4px solid var(--black);
+      margin-bottom: 32px;
+      font-size: 15px;
+    }
+    
+    .screenshot-box {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      margin-bottom: 40px;
+      padding: 24px;
+      background: var(--gray-50);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .screenshot-box img {
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+      border-radius: 2px;
+      display: block;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+    }
+    
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .pdf-gallery {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      width: 100%;
+    }
+    
+    .screenshot-box .pdf-gallery img {
+      width: 23%;
+      max-width: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+      border: 1px solid var(--border);
+    }
+    
+    .screenshot-caption {
+      font-size: 13px;
+      color: var(--gray-600);
+      margin-top: 16px;
+      text-align: center;
+      font-family: 'DM Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    ul.feature-list {
+      list-style: none;
+    }
+    
+    ul.feature-list li {
+      margin-bottom: 16px;
+      padding-left: 16px;
+      border-left: 2px solid var(--black);
+    }
+
+    .price-tag {
+      display: inline-block;
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+
+    .footer-link {
+      color: var(--gray-600);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .footer-link:hover {
+      color: var(--black);
+    }
+
+    @media (max-width: 1024px) {
+      .main-content {
+        padding: 64px 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+      .main-content {
+        margin-left: 0;
+        padding: 48px 24px;
+      }
+      .doc-title {
+        font-size: 40px;
+      }
+      .screenshot-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <aside class="sidebar">
+    <a href="index.html" class="doc-logo">
+      <img src="gliard_logo.svg" alt="Gliard Logo" style="height: 24px; width: auto;">
+      Gliard Docs
+    </a>
+    
+    <nav class="nav-group">
+      <div class="nav-title">Introduction</div>
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#what-is-gliard" class="active">What is Gliard?</a></li>
+        <li class="nav-item"><a href="#visual-tour">Visual Tour</a></li>
+        <li class="nav-item"><a href="#the-suite">The Gliard Suite</a></li>
+      </ul>
+    </nav>
+
+    <nav class="nav-group">
+      <div class="nav-title">Quick Start</div>
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#installation">Installation</a></li>
+        <li class="nav-item"><a href="#first-scan">Running your audit</a></li>
+      </ul>
+    </nav>
+
+    <nav class="nav-group">
+      <div class="nav-title">Features</div>
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#security-scanners">Advanced Scanners</a></li>
+        <li class="nav-item"><a href="#sentinel">Sentinel Engine</a></li>
+        <li class="nav-item"><a href="#compliance">EU AI Act Mapping</a></li>
+        <li class="nav-item"><a href="#reporting">Executive Reporting</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="doc-header">
+      <div class="doc-category">Documentation</div>
+      <h1 class="doc-title">Security infrastructure for AI agents.</h1>
+    </header>
+
+    <section id="what-is-gliard" class="section">
+      <h2>What is Gliard?</h2>
+      <p>Gliard is a professional-grade security suite designed to audit and protect autonomous AI agents. As agents transition from simple chat interfaces to systems with <strong>executive power</strong> (browsing, file access, API calls), the threat surface expands exponentially.</p>
+      <p>Traditional static analysis tools fail to capture the nondeterministic nature of LLM interactions. Gliard bridges this gap by combining <strong>deterministic logic scanning</strong> with <strong>live adversary simulation</strong>.</p>
+      <div class="info-box">
+        <strong>The Gliard Principle:</strong> Security for AI agents must be deterministic. We do not use LLMs to audit LLMs. We use rule-based AST analysis and verified exploit traces.
+      </div>
+      <div class="info-box" style="background: var(--gray-100); border-left-color: var(--black); margin-top: -16px;">
+        <strong>100% Local Execution:</strong> Gliard runs entirely on your local machine. Absolutely zero code, data, or audit results are sent to the cloud. Your intellectual property never leaves your secure environment.
+      </div>
+    </section>
+
+    <section id="visual-tour" class="section">
+      <h2>Visual Tour</h2>
+      <p>Get a glimpse of the Gliard suite in action, from the sleek terminal startup to the comprehensive audit reports.</p>
+      
+      <div class="screenshot-grid">
+        <div class="screenshot-box" style="margin-bottom: 0;">
+          <img src="gliardterminalstart.png" alt="Gliard Terminal Startup">
+          <div class="screenshot-caption">CLI Analysis and Progress Reporting</div>
+        </div>
+        
+        <div class="screenshot-box" style="margin-bottom: 0;">
+          <img src="Gliardterminalreport.png" alt="Gliard Terminal Report">
+          <div class="screenshot-caption">Detailed Technical Audit Report</div>
+        </div>
+      </div>
+      
+      <div class="screenshot-box">
+        <div class="pdf-gallery">
+          <img src="gliard_report_pdf/gliard_report-1.png" alt="Report Page 1">
+          <img src="gliard_report_pdf/gliard_report-2.png" alt="Report Page 2">
+          <img src="gliard_report_pdf/gliard_report-3.png" alt="Report Page 3">
+          <img src="gliard_report_pdf/gliard_report-4.png" alt="Report Page 4">
+        </div>
+        <div class="screenshot-caption">Board-ready Executive PDF Reporting</div>
+      </div>
+
+      <div class="screenshot-box">
+        <div class="pdf-gallery">
+          <img src="gliard_report_strategy/gliard_report_strategy-1.png" alt="Strategy Page 1">
+          <img src="gliard_report_strategy/gliard_report_strategy-2.png" alt="Strategy Page 2">
+          <img src="gliard_report_strategy/gliard_report_strategy-3.png" alt="Strategy Page 3">
+          <img src="gliard_report_strategy/gliard_report_strategy-4.png" alt="Strategy Page 4">
+        </div>
+        <div class="screenshot-caption">Developer Remediation Strategy Guide</div>
+      </div>
+
+      <div class="info-box" style="background: var(--white); border-left-color: var(--black); border: 1px solid var(--border); border-left: 4px solid var(--black); margin-top: 32px;">
+        <strong>Real-World Verification:</strong> The screenshots above represent an audit executed on a genuine, locally built AI agent. This is not a simulated mock-up. It is a real-world <strong>Gliard GUARD</strong> test demonstrating our deterministic logic scanning in action.
+      </div>
+    </section>
+
+    <section id="the-suite" class="section">
+      <h2>The Gliard Suite</h2>
+      <div class="price-tag">9 EUR / Month - Download via LemonSqueezy</div>
+      <p>Gliard is distributed as a single package focused on our powerful <strong>Guard Logic Scanners</strong>. As an early-access bonus, it also includes our experimental Sentinel adversary engine.</p>
+      <div class="info-box" style="margin-top: 24px; border-left-color: #44a;">
+        <strong>The Power of Guard:</strong> The absolute core strength of Gliard lies in the Guard engine. It provides deep AST logic analysis, robust reporting, EU AI Act compliance mapping, and over 20 deterministic scanners. It is the highly stable foundation that produces actionable insights for both developers and management.
+      </div>
+      <ul class="feature-list">
+        <li><strong>Static Analysis (AST):</strong> Deep code analysis without executing untrusted code.</li>
+        <li><strong>20+ Security Scanners:</strong> Covering prompt injections, excessive agency, and more.</li>
+        <li><strong>Professional Reporting:</strong> Generation of high-fidelity PDF and Markdown reports for technical and executive teams.</li>
+        <li><strong>EU AI Act Compliance:</strong> Automatic mapping of findings to specific regulatory articles.</li>
+        <li><strong>Sentinel Simulation <span class="beta-tag">beta</span>:</strong> Experimental live adversary verification of exploits. We are constantly improving this engine to reduce false positives and handle new attack vectors.</li>
+      </ul>
+    </section>
+
+    <section id="installation" class="section">
+      <h2>Installation</h2>
+      <p>Gliard is distributed as a pre-packaged archive. All dependencies are automatically resolved and installed.</p>
+      <pre><code><span class="highlight">1. Download</span>
+Purchase and download the Gliard archive from LemonSqueezy.
+
+<span class="highlight">2. Extract</span>
+Unzip the archive to your preferred directory.
+cd gliard-suite
+
+<span class="highlight">3. Install Package</span>
+Install the pre-configured package using pip:
+pip install gliard_v1.0.0.tar.gz</code></pre>
+    </section>
+
+    <section id="first-scan" class="section">
+      <h2>Running your audit</h2>
+      <p>Scan a local agent directory to identify immediate security gaps. Once installed, the <code>gliard</code> command is available globally.</p>
+      <pre><code>gliard</code></pre>
+      <p>This launches the interactive CLI dashboard where you can manage targets and audit configurations. Alternatively, you can run a direct non-interactive audit by specifying the path to your agent:</p>
+      <pre><code>gliard /path/to/your/agent --output audit_report</code></pre>
+      <p>The scanner will output a technical summary to the console and generate a detailed report in the <code>./reports</code> directory.</p>
+    </section>
+
+    <section id="security-scanners" class="section">
+      <h2>Advanced Scanners</h2>
+      <p>The suite features our full set of specialized scanners, including:</p>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px;">
+        <div style="border: 1px solid var(--border); padding: 24px; border-radius: 4px;">
+          <h3 style="font-family:'DM Mono',monospace; font-size: 14px; margin-bottom: 8px;">prompt_injection</h3>
+          <p style="font-size: 13px; margin-bottom: 0;">Detects latent space vulnerabilities where untrusted data can hijack agent intent.</p>
+        </div>
+        <div style="border: 1px solid var(--border); padding: 24px; border-radius: 4px;">
+          <h3 style="font-family:'DM Mono',monospace; font-size: 14px; margin-bottom: 8px;">excessive_agency</h3>
+          <p style="font-size: 13px; margin-bottom: 0;">Identifies tool-call permissions that exceed the necessary scope for the agent task.</p>
+        </div>
+        <div style="border: 1px solid var(--border); padding: 24px; border-radius: 4px;">
+          <h3 style="font-family:'DM Mono',monospace; font-size: 14px; margin-bottom: 8px;">mcp_configuration</h3>
+          <p style="font-size: 13px; margin-bottom: 0;">Audits Model Context Protocol server configurations for insecure resource access.</p>
+        </div>
+        <div style="border: 1px solid var(--border); padding: 24px; border-radius: 4px;">
+          <h3 style="font-family:'DM Mono',monospace; font-size: 14px; margin-bottom: 8px;">secret_exfiltration</h3>
+          <p style="font-size: 13px; margin-bottom: 0;">Maps environment variable flows to prevent leaking API keys through the LLM context.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="sentinel" class="section">
+      <h2>Sentinel Engine <span class="beta-tag" style="font-size: 14px; padding: 4px 8px;">beta</span></h2>
+      <p>Sentinel is our experimental Adversary Simulation Engine. While the Guard engine deterministically analyzes your code, Sentinel goes a step further and attempts a live exploit in a controlled environment. Because LLMs are highly unpredictable, Sentinel is currently in <strong>Beta</strong>. We are constantly updating its payloads, response parsers, and marker systems to handle new edge cases and reduce false positives.</p>
+      
+      <h3 style="font-size: 18px; margin-top: 32px; margin-bottom: 16px;">RCE and Exploit Verification</h3>
+      <p>When Gliard finds a potential Remote Code Execution (RCE) vector via a tool call, Sentinel will simulate the attack. If successful, it delivers a Verified Exploit Trace.</p>
+      <pre><code><span class="highlight">[ SENTINEL ] Verifying RCE exploit...</span>
+Target: tool_call.subprocess_run
+Payload: "cat /etc/passwd"
+Status: <span style="color:#ff4444;font-weight:bold;">EXPLOIT VERIFIED</span>
+Trace: File content exfiltrated to adversary sink.</code></pre>
+    </section>
+
+    <section id="compliance" class="section">
+      <h2>EU AI Act Mapping</h2>
+      <p>Gliard helps your legal team by providing technical evidence for regulatory compliance. Every finding is mapped to specific articles of the EU AI Act.</p>
+      <ul class="feature-list">
+        <li>
+          <strong>Article 9: Risk Management</strong><br>
+          <span style="font-size: 14px; color: var(--gray-600);">Automatic detection of Annex III risk declarations and mitigation strategies.</span>
+        </li>
+        <li>
+          <strong>Article 13: Transparency</strong><br>
+          <span style="font-size: 14px; color: var(--gray-600);">Verification that system prompts include explicit AI disclosure markers.</span>
+        </li>
+        <li>
+          <strong>Article 14: Human Oversight</strong><br>
+          <span style="font-size: 14px; color: var(--gray-600);">Auditing for escalation logic and manual override triggers in the agent code.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="reporting" class="section">
+      <h2>Executive Reporting</h2>
+      <p>Technical vulnerabilities mean nothing without management buy-in. Gliard generates board-ready reports automatically.</p>
+      <ul class="feature-list">
+        <li><strong>Executive Summary:</strong> High-level business risk overview.</li>
+        <li><strong>Technical Audit:</strong> Detailed AST and Sentinel traces for developers.</li>
+        <li><strong>Remediation Strategy:</strong> Step-by-step guidance to patch identified vectors.</li>
+      </ul>
+    </section>
+
+    <footer class="cta-footer">
+      <div style="display: flex; align-items: center; gap: 24px;">
+        <a href="index.html" class="footer-link">&larr; Back to Homepage</a>
+        <a href="mailto:support@gliard.com" class="footer-link">Contact Support</a>
+      </div>
+      <div class="footer-link">&copy; 2026 Gliard. AI Agent Security.</div>
+    </footer>
+  </main>
+
+  <script>
+    // Simple smooth scroll and active link tracking
+    document.querySelectorAll('.nav-item a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+        
+        document.querySelectorAll('.nav-item a').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+  </script>
+</body>
+
+</html>
