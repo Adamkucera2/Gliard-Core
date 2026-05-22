@@ -4,7 +4,7 @@
   <i>"Building trust in the age of autonomous agents."</i>
 </p>
 
-# Gliard: The Advanced AI Agent Security Suite
+# Gliard: The Advanced AI Agent Audit
 
 Gliard is a professional-grade security auditor with deep analysis for Python agents and universal adversary simulation via HTTP. It addresses the unique risks of agentic workflows—from prompt injections and excessive agency to regulatory compliance.
 
